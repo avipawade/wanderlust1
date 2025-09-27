@@ -25,10 +25,19 @@ const session = require("express-session");
 const MongoStore = require('connect-mongo');
 const flash = require("express-flash");
 
-const dbUrl = process.env.ATLAS_DB;
+const dburl = process.env.ATLASDB_URL
+
+main()
+.then(()=>{
+  console.log("connected to db");
+})
+
+.catch((err)=>{
+  console.log(err);
+})
 
 const store =  MongoStore.create({
-   mongoUrl: dbUrl,
+   mongoUrl: process.env.ATLASDB_URL,
      crypto: {
     secret: process.env.SECRET
   },
@@ -78,16 +87,8 @@ const Review = require("./models/reviews.js")
 
 
 async function main(){
-await mongoose.connect(dbUrl);
+await mongoose.connect(dburl);
 }
-main()
-.then(()=>{
-    console.log("connected successfully")
-})
-.catch(err=>{
-    console.log(err);
-})
-
 app.get("/demouser",async(req,res)=>{
  let fakeuser = new User({
   email : "avi2004@gmail.com",
