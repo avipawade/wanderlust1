@@ -1,0 +1,59 @@
+<%layout("/layouts/boilerplate")%>
+<body>
+   
+
+    <div class="row">
+    <div class="col-6 offset-3">
+      <br>
+    <h2 class="mb-3">Fill Form:</h2>
+    <form action="/listings" method="POST" novalidate class="needs-validation " enctype="multipart/form-data" >
+        
+   <div class="mb-3">
+    <label for="title" class="form-label">Title</label >
+     <input type="text" name ="listing[title]" class="form-control" placeholder="Enter Title Of Your List" required>
+     <div class="valid-feedback">Title looks good</div>
+     <div class="invalid-feedback">please enter correct title </div>
+   </div>
+    
+   <div class="mb-3">
+    <label for="description" class="form-label">Description</label>
+    <textarea type="text" name ="listing[description]" class="form-control" placeholder="Enter description Of Your List" required></textarea>
+    <div class="valid-feedback">description looks good</div>
+    <div class="invalid-feedback">please enter correct description </div>
+   </div>
+
+    
+    <div class="mb-3">
+     <label for="image" class="form-label">Upload Image</label>
+     <input type="file" name="listing[image]" class="form-control" required>
+  
+   </div>
+
+<div class="row ">
+  
+   <div class="mb-3 col-md-6">
+    <label for="location" class="form-label" >Location</label>
+    <input type="text" name="listing[location]" placeholder="Enter location " class="form-control" required>
+    <div class="valid-feedback">location looks good</div>
+    <div class="invalid-feedback">please enter correct location </div>
+   </div>
+
+    <div class="mb-3 col-md-6">
+     <label for="price" class="form-label">Price</label>
+     <input class="form-control"   name="listing[price]" placeholder="Enter Price of Your list" required>
+     <div class="valid-feedback">Price looks good</div>
+      <div class="invalid-feedback">please enter correct price </div>
+    </div>
+
+</div>
+   
+    <button class="btn btn-dark add-btn">Add</button>
+ <br><br>
+    
+    </form>
+    </div>
+    </div>
+
+    
+</body>
+</html>

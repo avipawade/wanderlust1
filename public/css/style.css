@@ -1,0 +1,107 @@
+/* body{
+    background-color: pink;
+} */
+body{
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+
+}
+
+.container {
+    flex: 1;
+}
+.navbar {
+    height: 5rem;
+    background-color: white;
+}
+
+.fa-regular{
+    color:#fe424d;
+}
+
+.nav-link {
+    color:#222222 !important;
+}
+
+.f-info-links a {
+    text-decoration: none;
+    color: #222222;
+}
+
+.f-info-links a:hover{
+    text-decoration: underline ;
+}
+
+.f-info-links , .f-info-socials , .f-info-brand {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.f-info-socials i {
+  font-size: 1.5rem;
+  margin-right: 1rem;
+}
+.f-info {
+    background-color: #ebebeb;
+    height: 8rem;
+    display: flex;
+    text-align: center;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.listing-card {
+    border: none !important;
+    margin-bottom: 2rem;
+}
+
+.card-img-top {
+    border-radius: 1rem;
+    width: 100% !important;
+    object-fit: cover !important;
+}
+.card-body h5 {
+    font-weight: 400 !important;
+}
+
+.listing-link{
+    text-decoration:none;
+}
+
+.card-img-overlay{
+    opacity: 0;
+}
+.card-img-overlay:hover{
+ opacity: 0.2;
+ background-color: white;
+}
+
+.add-btn{
+    background-color: #fe424d !important;
+    border: none !important;
+}
+
+.submit-btn{
+    /* border-radius: 0.5rem !important; */
+    border: none !important;
+    background-color: #fe424d !important;
+}
+
+.show-img{
+    height: 45vh;
+}
+
+.ed-btn {
+    border: none !important;
+    background-color: #fe424d !important;
+}
+
+/* MAP */
+
+#map { 
+    height: 400px;
+    width: 80vh;
+ }
