@@ -4,28 +4,24 @@ if(process.env.NODE_ENV != "production"){
 
 const express = require ("express");
 const app = express();
-
-
+const mongoose = require("mongoose");
 const path = require("path");
-app.set("view engine","ejs");
-app.set("views",path.join(__dirname,"/views")); 
-app.use(express.urlencoded({ extended: true }));
+const methodOverride = require("method-override");
 const ejsMate = require("ejs-mate");
-const wrapAsync = require("./utils/wrapAsync.js");
 const ExpressError = require("./utils/ExpressError.js");
-const {listingSchema , reviewSchema} = require("./schema.js");
-
-//authentication 
-
+const session = require("express-session");
+const MongoStore = require('connect-mongo');
+const flash = require("express-flash");
 const passport = require("passport");
 const Localstrategy = require("passport-local");
 const User = require("./models/user.js");
 
-const session = require("express-session");
-const MongoStore = require('connect-mongo');
-const flash = require("express-flash");
+const listingRouter = require("./routes/listings.js");
+const reviewRouter = require("./routes/reviews.js");
+const userRouter = require("./routes/user.js");
 
 const dburl = process.env.ATLASDB_URL
+
 
 main()
 .then(()=>{
@@ -36,6 +32,20 @@ main()
   console.log(err);
 })
 
+async function main(){
+await mongoose.connect(dburl) 
+};
+
+
+
+
+app.set("view engine","ejs");
+app.set("views",path.join(__dirname,"/views")); 
+app.use(express.urlencoded({ extended: true }));
+app.use(methodOverride('_method'));
+app.engine('ejs',ejsMate);
+app.use(express.static(path.join(__dirname,"/public")));
+
 const store =  MongoStore.create({
    mongoUrl: process.env.ATLASDB_URL,
      crypto: {
@@ -44,7 +54,8 @@ const store =  MongoStore.create({
   touchAfter:24*3600,
 
 });
-store.on("error",()=>{
+
+store.on("error",(err)=>{
   console.log("ERROR IN MONGO SESSION STORE",err)
 })
 
@@ -60,7 +71,9 @@ const sessionpotions = {
   }
 }
 
+const wrapAsync = require("./utils/wrapAsync.js");
 
+const {listingSchema , reviewSchema} = require("./schema.js");
 
 app.use(session(sessionpotions));
 app.use(flash());
@@ -71,24 +84,9 @@ passport.use(new Localstrategy(User.authenticate()));
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
-const listingRouter = require("./routes/listings.js");
-const reviewRouter = require("./routes/reviews.js");
-const userRouter = require("./routes/user.js");
-
-
-app.engine('ejs',ejsMate);
-
-app.use(express.static(path.join(__dirname,"/public")));
-const methodOverride = require("method-override");
-app.use(methodOverride('_method'));
-const mongoose = require("mongoose");
 const Listing = require("./models/listing.js")
 const Review = require("./models/reviews.js")
 
-
-async function main(){
-await mongoose.connect(dburl);
-}
 app.get("/demouser",async(req,res)=>{
  let fakeuser = new User({
   email : "avi2004@gmail.com",
